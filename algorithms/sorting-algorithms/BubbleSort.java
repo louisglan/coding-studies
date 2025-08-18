@@ -1,5 +1,5 @@
-public class BubbleSort {
-    public static int[] sort(int[] numbers) {
+public class BubbleSort extends Sort {
+    public Double[] sort(Double[] numbers) {
         boolean isChanged = true;
         while (isChanged) {
             isChanged = false;
@@ -13,10 +13,14 @@ public class BubbleSort {
         return numbers;
     }
 
-    private static void switchOrder(int[] numbers, int i, int j) {
-        int firstNumber = numbers[i];
-        int secondNumber = numbers[j];
+    private static void switchOrder(Double[] numbers, int i, int j) {
+        double firstNumber = numbers[i];
+        double secondNumber = numbers[j];
         numbers[i] = secondNumber;
         numbers[j] = firstNumber;
+    }
+
+    public String getAlgorithmName() {
+        return "bubble sort";
     }
 }
