@@ -40,7 +40,4 @@ public class InsertionSort extends Sort {
     public String getAlgorithmName() {
         return "insertion sort";
     }
-
-    //neater version of this algorithm:
-    // int[] numbers = new int[10]
 }

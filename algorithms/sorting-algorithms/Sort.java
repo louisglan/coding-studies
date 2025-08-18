@@ -1,7 +1,7 @@
 import static utils.PrintUtils.printFormattedArray;
 
 public abstract class Sort {
-    public long sortAndPrint(Double[] numbers) {
+    public long sortAndPrintResults(Double[] numbers) {
         System.out.printf("%s sorted numbers:\n", getAlgorithmName());
         long startTime = System.nanoTime();
         Double[] sortedNumbers = sort(numbers);
