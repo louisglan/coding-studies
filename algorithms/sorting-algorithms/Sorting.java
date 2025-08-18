@@ -1,6 +1,6 @@
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.Random;
+
+import static utils.PrintUtils.printFormattedArray;
 
 public class Sorting {
     // TODO: Find O(n) (time and space) of each algorithm and attempt to implement algorithm for more than numbers. Maybe add tests
@@ -15,28 +15,11 @@ public class Sorting {
         printFormattedArray(numbers);
 
         Sort bubbleSort = new BubbleSort();
-        long bubbleSortTime = sort(numbers, bubbleSort);
+        long bubbleSortTime = bubbleSort.sortAndPrint(numbers);
 
         Sort insertionSort = new InsertionSort();
-        long insertionSortTime = sort(numbers, insertionSort);
+        long insertionSortTime = insertionSort.sortAndPrint(numbers);
         System.out.printf("%s time: %fs\n", bubbleSort.getAlgorithmName(), bubbleSortTime / 1000000000f);
         System.out.printf("%s time: %fs\n", insertionSort.getAlgorithmName(), insertionSortTime / 1000000000f);
-    }
-
-    public static void printFormattedArray(Double[] numbers) {
-        DecimalFormat df = new DecimalFormat("#.##");
-        df.setRoundingMode(RoundingMode.HALF_UP);
-        for (Double number : numbers) {
-            System.out.println(df.format(number));
-        }
-    }
-
-    private static long sort(Double[] numbers, Sort sortingAlgorithm) {
-        System.out.printf("%s sorted numbers:\n", sortingAlgorithm.getAlgorithmName());
-        long startTime = System.nanoTime();
-        Double[] sortedNumbers = sortingAlgorithm.sort(numbers);
-        long endTime = System.nanoTime();
-        printFormattedArray(sortedNumbers);
-        return endTime - startTime;
     }
 }
