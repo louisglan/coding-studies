@@ -1,8 +1,5 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
 public class InsertionSortV2 extends Sort {
+    @Override
     public Double[] sort(Double[] numbers) {
         for (int i = 1; i < numbers.length; i++) {
             Double currentNumber = numbers[i];

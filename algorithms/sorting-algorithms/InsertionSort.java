@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class InsertionSort extends Sort {
+    @Override
     public Double[] sort(Double[] numbers) {
         ArrayList<Double> numbersAsList = new ArrayList<>(Arrays.asList(numbers));
         ArrayList<Double> sortedList = new ArrayList<>(Collections.singletonList(numbersAsList.get(0)));
