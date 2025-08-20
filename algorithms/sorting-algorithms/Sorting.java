@@ -3,7 +3,8 @@ import java.util.Random;
 import static utils.PrintUtils.printFormattedArray;
 
 public class Sorting {
-    // TODO: Find O(n) (time and space) of each algorithm and attempt to implement algorithm for more than numbers. Maybe add tests
+    // TODO: Find O(n) (time and space) of each algorithm and attempt to implement algorithm for more than numbers.
+    //  Maybe add tests and some documentation comments describing how the algorithm works and other details
     public static void main(String[] args) {
         Random rand = new Random();
         int numberCount = 10;
