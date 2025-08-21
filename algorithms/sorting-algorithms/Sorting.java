@@ -5,6 +5,8 @@ import static utils.PrintUtils.printFormattedArray;
 public class Sorting {
     // TODO: Find O(n) (time and space) of each algorithm and attempt to implement algorithm for more than numbers.
     //  Maybe add tests and some documentation comments describing how the algorithm works and other details
+    //  Attempt to implement selection, radix, counter and quick sorts
+    //  Make sure each algorithm is stable
     public static void main(String[] args) {
         Random rand = new Random();
         int numberCount = 10;
@@ -15,21 +17,19 @@ public class Sorting {
         System.out.println("Unsorted numbers:");
         printFormattedArray(numbers);
 
-        Sort bubbleSort = new BubbleSort();
-        long bubbleSortTime = bubbleSort.sortAndPrintResults(numbers.clone());
+        Sort[] sortingAlgorithms = {
+                new BubbleSort(),
+                new SelectionSort(),
+                new InsertionSort(),
+                new InsertionSortV2(),
+                new MergeSort()};
 
-        Sort insertionSort = new InsertionSort();
-        long insertionSortTime = insertionSort.sortAndPrintResults(numbers.clone());
+        for (Sort sortingAlgorithm : sortingAlgorithms) {
+            sortingAlgorithm.sortAndPrintResults(numbers.clone());
+        }
 
-        Sort insertionSortV2 = new InsertionSortV2();
-        long insertionSortV2Time = insertionSortV2.sortAndPrintResults(numbers.clone());
-
-        Sort mergeSort = new MergeSort();
-        long mergeSortTime = mergeSort.sortAndPrintResults(numbers.clone());
-
-        System.out.printf("%s time: %fs\n", bubbleSort.getAlgorithmName(), bubbleSortTime / 1000000000f);
-        System.out.printf("%s time: %fs\n", insertionSort.getAlgorithmName(), insertionSortTime / 1000000000f);
-        System.out.printf("%s time: %fs\n", insertionSortV2.getAlgorithmName(), insertionSortV2Time / 1000000000f);
-        System.out.printf("%s time: %fs\n", mergeSort.getAlgorithmName(), mergeSortTime / 1000000000f);
+        for (Sort sortingAlgorithm : sortingAlgorithms) {
+            System.out.printf("%s time: %fs\n", sortingAlgorithm.getAlgorithmName(), sortingAlgorithm.getTimeTaken() / 1000000000f);
+        }
     }
 }

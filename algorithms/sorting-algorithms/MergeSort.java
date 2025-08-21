@@ -2,7 +2,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MergeSort extends Sort {
-    // TODO: implement parallel processing. In divide and conquer algorithms "solving problems using some defined base cases can be done within the cache memory" - investigate this. Can also implement in multiple ways e.g., recursively, iteratively, etc.
+    // TODO: implement parallel processing. In divide and conquer algorithms
+    //  "solving problems using some defined base cases can be done within the cache memory" - investigate this.
+    //  Can also implement in multiple ways e.g., recursively, iteratively, etc. (see Coda notes)
     @Override
     public Double[] sort(Double[] numbers) {
         ArrayList<Double> numbersAsList = new ArrayList<>(Arrays.asList(numbers));
