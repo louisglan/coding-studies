@@ -1,3 +1,8 @@
+/**
+ * Bubble sort is very simple. It works by comparing adjacent pairs of elements and if they are not in order they are
+ * swapped. The algorithm repeatedly loops through the array until it doesn't have to do any more swaps
+ */
+
 public class BubbleSort extends Sort {
     @Override
     public Double[] sort(Double[] numbers) {

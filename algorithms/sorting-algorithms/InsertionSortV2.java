@@ -1,3 +1,8 @@
+/**
+ * In this simpler implementation of insertion sort, the list is not split into two. Instead, the insertion works by
+ * moving all the elements before the inspected element that are larger than it up and then filling the empty space with
+ * the inspected element
+ */
 public class InsertionSortV2 extends Sort {
     @Override
     public Double[] sort(Double[] numbers) {

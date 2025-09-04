@@ -29,7 +29,7 @@ public class Sorting {
         }
 
         for (Sort sortingAlgorithm : sortingAlgorithms) {
-            System.out.printf("%s time: %fs\n", sortingAlgorithm.getAlgorithmName(), sortingAlgorithm.getTimeTaken() / 1000000000f);
+            System.out.printf("%s time: %fs\n", sortingAlgorithm.getAlgorithmName(), sortingAlgorithm.getWallClockTime() / 1000000000f);
         }
     }
 }
