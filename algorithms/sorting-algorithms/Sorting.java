@@ -22,7 +22,8 @@ public class Sorting {
                 new SelectionSort(),
                 new InsertionSort(),
                 new InsertionSortV2(),
-                new MergeSort()};
+                new MergeSort(),
+                new QuickSort()};
 
         for (Sort sortingAlgorithm : sortingAlgorithms) {
             sortingAlgorithm.sortAndPrintResults(numbers.clone());
