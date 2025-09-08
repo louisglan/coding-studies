@@ -1,43 +1,52 @@
-import java.util.ArrayList;
-
 public class QuickSort extends Sort {
-    // TODO: find a way to switch between array and arraylist less. Maybe create a helper method that is called recursively instead of sort that uses arraylist
 
     @Override
     public Double[] sort(Double[] numbers) {
-        if (numbers.length == 1 || numbers.length == 0) return numbers;
-        Double pivot = numbers[numbers.length - 1];
-        var lessThanPivot = new ArrayList<Double>();
-        var greaterThanPivot = new ArrayList<Double>();
-        for (int i = 0; i < numbers.length - 1; i++) {
-            if (numbers[i] <= pivot) {
-                lessThanPivot.add(numbers[i]);
-            } else {
-                greaterThanPivot.add(numbers[i]);
-            }
-        }
-        var sortedLessThanPivot = sort(lessThanPivot.toArray(new Double[0]));
-        var sortedGreaterThanPivot = sort(greaterThanPivot.toArray(new Double[0]));
-        return combineArraysAndPivot(sortedLessThanPivot, pivot, sortedGreaterThanPivot);
+        return sort(numbers, 0, numbers.length - 1);
     }
-    private Double[] combineArraysAndPivot(Double[] lessThanPivot, Double pivot, Double[] greaterThanPivot) {
-        Double[] combinedArray = new Double[lessThanPivot.length + greaterThanPivot.length + 1];
-        for (int i = 0; i < combinedArray.length; i++) {
-            if (i < lessThanPivot.length) {
-                combinedArray[i] = lessThanPivot[i];
-            } else if (i == lessThanPivot.length) {
-                combinedArray[i] = pivot;
-            } else {
-                combinedArray[i] = greaterThanPivot[i - lessThanPivot.length - 1];
+
+    private Double[] sort(Double[] numbers, int startIndex, int endIndex) {
+        if (Math.abs(startIndex - endIndex) <= 1) return numbers;
+        int finalPivotIndex = partition(numbers, startIndex, endIndex);
+        sort(numbers, startIndex, finalPivotIndex - 1);
+        sort(numbers, finalPivotIndex + 1, endIndex);
+        return numbers;
+    }
+
+    private int partition(Double[] numbers, int startIndex, int endIndex) {
+        int pivotIndex = medianOfThree(numbers, startIndex, endIndex);
+        swap(numbers, pivotIndex, endIndex);
+        Double pivot = numbers[endIndex];
+        int i = startIndex;
+        for (int j = startIndex; j < endIndex; j++) {
+            if (numbers[j] < pivot) {
+                swap(numbers, i, j);
+                i++;
             }
         }
-        return combinedArray;
+        swap(numbers, i, endIndex);
+        return i;
+    }
+
+    private int medianOfThree(Double[] numbers, int startIndex, int endIndex) {
+        int medianIndex = (startIndex + endIndex)/2;
+        if (numbers[startIndex] < numbers[endIndex] ^ numbers[startIndex] < numbers[medianIndex]) {
+            return startIndex;
+        }
+        if (numbers[endIndex] > numbers[startIndex] ^ numbers[endIndex] > numbers[medianIndex]) {
+            return endIndex;
+        }
+        return medianIndex;
+    }
+
+    private void swap(Double[] numbers, int i, int j) {
+        Double temp = numbers[i];
+        numbers[i] = numbers[j];
+        numbers[j] = temp;
     }
 
     @Override
     public String getAlgorithmName() {
         return "quick Sort";
     }
-
-
 }
