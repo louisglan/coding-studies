@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+// TODO: implement DFS and BFS on adjacency matrices
 public class NetworkAlgorithms {
     public static void main(String[] args) {
         AdjacencyList adjacencyList = new AdjacencyList();
@@ -13,7 +14,7 @@ public class NetworkAlgorithms {
         adjacencyList.put("G", new String[]{"D", "F", "H"});
         adjacencyList.put("H", new String[]{"E", "F", "G"});
 
-        String startNode = "F";
+        String startNode = "H";
         String endNode = "A";
 
         System.out.println("DFS recursive:");
@@ -29,9 +30,11 @@ public class NetworkAlgorithms {
         }
 
         System.out.println("BFS iterative:");
-        ArrayList<String> bfsIterativePath = BfsIterative.findRoute(adjacencyList, startNode, endNode);
+        ArrayList<String> bfsIterativePath = BfsIterative.findShortestRoute(adjacencyList, startNode, endNode);
         for (String node : bfsIterativePath) {
             System.out.println(node);
         }
+        System.out.println("BFS distance: " + BfsIterative.findShortestDistance(adjacencyList, startNode, endNode));
+
     }
 }
