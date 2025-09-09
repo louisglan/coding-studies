@@ -5,7 +5,7 @@ import static utils.PrintUtils.printFormattedArray;
 public class Sorting {
     // TODO: Find O(n) (time and space) of each algorithm and attempt to implement algorithm for more than numbers.
     //  Maybe add tests and some documentation comments describing how the algorithm works and other details
-    //  Attempt to implement selection, radix, counter and quick sorts
+    //  Attempt to implement selection, radix, counter and tim sorts
     //  Make sure each algorithm is stable
     public static void main(String[] args) {
         Random rand = new Random();

@@ -13,10 +13,16 @@ public class NetworkAlgorithms {
         adjacencyList.put("G", new String[]{"D", "F", "H"});
         adjacencyList.put("H", new String[]{"E", "F", "G"});
 
-        ArrayList<String> path = DfsRecursive.findRoute(adjacencyList, "H", "A");
-        for (String node : path) {
+        System.out.println("DFS recursive:");
+        ArrayList<String> dfsRecursivePath = DfsRecursive.findRoute(adjacencyList, "H", "A");
+        for (String node : dfsRecursivePath) {
             System.out.println(node);
         }
 
+        System.out.println("DFS iterative:");
+        ArrayList<String> dfsIterativePath = DfsIterative.findRoute(adjacencyList, "H", "A");
+        for (String node : dfsIterativePath) {
+            System.out.println(node);
+        }
     }
 }
