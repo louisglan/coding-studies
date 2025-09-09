@@ -10,20 +10,27 @@ public class DfsRecursive{
     public static ArrayList<String> findRoute(AdjacencyList adjacencyList, String startNode, String endNode) {
         ArrayList<String> visitedPositions = new ArrayList<>();
         ArrayList<String> path = new ArrayList<>();
-        return search(adjacencyList, startNode, endNode, visitedPositions, path);
+        SearchContext context = new SearchContext(adjacencyList, endNode, visitedPositions, path);
+        return search(context, startNode);
     }
 
-    private static ArrayList<String> search(AdjacencyList adjacencyList, String currentNode, String endNode, ArrayList<String> visitedPositions, ArrayList<String> path) {
-        visitedPositions.add(currentNode);
-        for (String neighbour : adjacencyList.get(currentNode)) {
-            if (!visitedPositions.contains(neighbour)) search(adjacencyList, neighbour, endNode, visitedPositions, path);
+    private static ArrayList<String> search(SearchContext context, String currentNode) {
+        context.visitedPositions.add(currentNode);
+        for (String neighbour : context.adjacencyList.get(currentNode)) {
+            if (!context.visitedPositions.contains(neighbour)) search(context, neighbour);
         }
-        if (!path.isEmpty()) {
-            path.addFirst(currentNode);
+        if (!context.path.isEmpty()) {
+            context.path.addFirst(currentNode);
         }
-        if (currentNode.equals(endNode)) {
-            path.add(currentNode);
+        if (currentNode.equals(context.endNode)) {
+            context.path.add(currentNode);
         }
-        return path;
+        return context.path;
     }
+
+    private record SearchContext(
+            AdjacencyList adjacencyList,
+            String endNode,
+            ArrayList<String> visitedPositions,
+            ArrayList<String> path) {}
 }
