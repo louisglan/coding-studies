@@ -1,3 +1,4 @@
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,26 +11,39 @@ public class Dijkstra {
         String currentNode = startNode;
         for (int i = 0; i < adjacencyList.keySet().size(); i++) {
             for (var neighbour : adjacencyList.get(currentNode)) {
-                if (finalValues.get(neighbour.getKey()) != null) continue;
-                var neighbourWorkingValue = workingValues.get(neighbour.getKey());
-                var distanceThroughCurrentNodeToNeighbour = workingValues.get(currentNode) + neighbour.getValue();
-                if (neighbourWorkingValue != null && neighbourWorkingValue < distanceThroughCurrentNodeToNeighbour)
-                    continue;
-                workingValues.put(neighbour.getKey(), distanceThroughCurrentNodeToNeighbour);
+                updateAdjacentNodes(workingValues, finalValues, neighbour, currentNode);
             }
-            Double minFinalValue = Double.MAX_VALUE;
-            String finalNode = "";
-            for (String node : workingValues.keySet()) {
-                if (finalValues.get(node) == null && workingValues.get(node) < minFinalValue) {
-                    minFinalValue = workingValues.get(node);
-                    finalNode = node;
-                }
-            }
-            finalValues.put(finalNode, minFinalValue);
-            currentNode = finalNode;
+            currentNode = identifyAndUpdateFinalNode(workingValues, finalValues);
         }
         WeightedAdjacencyList backtrackingAdjacencyList = generateBacktrackingAdjacencyList(adjacencyList);
         return backtrack(backtrackingAdjacencyList, finalValues, endNode, startNode);
+    }
+
+    private static void updateAdjacentNodes(
+            HashMap<String, Double> workingValues,
+            HashMap<String, Double> finalValues,
+            AbstractMap.SimpleEntry<String, Double> neighbour,
+            String currentNode) {
+        if (finalValues.get(neighbour.getKey()) != null) return;
+        var neighbourWorkingValue = workingValues.get(neighbour.getKey());
+        var distanceThroughCurrentNodeToNeighbour = workingValues.get(currentNode) + neighbour.getValue();
+        if (neighbourWorkingValue != null && neighbourWorkingValue < distanceThroughCurrentNodeToNeighbour)
+            return;
+        workingValues.put(neighbour.getKey(), distanceThroughCurrentNodeToNeighbour);
+    }
+
+    private static String identifyAndUpdateFinalNode(HashMap<String, Double> workingValues,
+                                                     HashMap<String, Double> finalValues) {
+        Double minFinalValue = Double.MAX_VALUE;
+        String finalNode = "";
+        for (String node : workingValues.keySet()) {
+            if (finalValues.get(node) == null && workingValues.get(node) < minFinalValue) {
+                minFinalValue = workingValues.get(node);
+                finalNode = node;
+            }
+        }
+        finalValues.put(finalNode, minFinalValue);
+        return finalNode;
     }
 
     private static WeightedAdjacencyList generateBacktrackingAdjacencyList(WeightedAdjacencyList adjacencyList) {
