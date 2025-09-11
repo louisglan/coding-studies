@@ -11,6 +11,11 @@ public class WeightedAdjacencyList extends HashMap<String, List<AbstractMap.Simp
         this.get(startNode).add(new AbstractMap.SimpleEntry<>(endNode, weight));
     }
 
+    public void addUndirectedEdge(Edge edge) {
+        this.addDirectedEdge(edge.getNode1(), edge.getNode2(), edge.getWeight());
+        this.addDirectedEdge(edge.getNode2(), edge.getNode1(), edge.getWeight());
+    }
+
     public List<Edge> getEdges() {
         AdjacencyList edgesAdded = new AdjacencyList();
         List<Edge> edges = new ArrayList<>();

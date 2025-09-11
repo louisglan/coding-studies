@@ -13,8 +13,7 @@ public class Kruskal {
         WeightedAdjacencyList minimumSpanningTree = new WeightedAdjacencyList();
         for (Edge edge : edges) {
             if (!edgeCreatesCycle(minimumSpanningTree, edge)) {
-                minimumSpanningTree.addDirectedEdge(edge.getNode1(), edge.getNode2(), edge.getWeight());
-                minimumSpanningTree.addDirectedEdge(edge.getNode2(), edge.getNode1(), edge.getWeight());
+                minimumSpanningTree.addUndirectedEdge(edge);
             }
         }
         return minimumSpanningTree;
