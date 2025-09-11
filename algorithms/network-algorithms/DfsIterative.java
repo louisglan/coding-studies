@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class DfsIterative {
@@ -15,9 +16,9 @@ public class DfsIterative {
             if (currentNode.equals(endNode)) {
                 return path;
             }
-            String[] neighbours = adjacencyList.get(currentNode);
-            for (int i = neighbours.length - 1; i >=0; i--) {
-                if (!visitedPositions.contains(neighbours[i])) stack.push(neighbours[i]);
+            List<String> neighbours = adjacencyList.get(currentNode);
+            for (int i = neighbours.size() - 1; i >=0; i--) {
+                if (!visitedPositions.contains(neighbours.get(i))) stack.push(neighbours.get(i));
             }
         }
         return path;

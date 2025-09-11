@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 // TODO: implement DFS and BFS on adjacency matrices
 public class NetworkAlgorithms {
@@ -10,14 +11,14 @@ public class NetworkAlgorithms {
     private static void processUnweightedGraphs() {
         AdjacencyList adjacencyList = new AdjacencyList();
         // Graph from 3D.5 in Edexcel A level D1
-        adjacencyList.put("A", new String[]{"B", "C", "D"});
-        adjacencyList.put("B", new String[]{"A", "C", "E"});
-        adjacencyList.put("C", new String[]{"A", "B", "D", "E", "F"});
-        adjacencyList.put("D", new String[]{"A", "C", "F", "G"});
-        adjacencyList.put("E", new String[]{"B", "C", "F", "H"});
-        adjacencyList.put("F", new String[]{"C", "D", "E", "G", "H"});
-        adjacencyList.put("G", new String[]{"D", "F", "H"});
-        adjacencyList.put("H", new String[]{"E", "F", "G"});
+        adjacencyList.put("A", List.of("B", "C", "D"));
+        adjacencyList.put("B", List.of("A", "C", "E"));
+        adjacencyList.put("C", List.of("A", "B", "D", "E", "F"));
+        adjacencyList.put("E", List.of("B", "C", "F", "H"));
+        adjacencyList.put("D", List.of("A", "C", "F", "G"));
+        adjacencyList.put("F", List.of("C", "D", "E", "G", "H"));
+        adjacencyList.put("G", List.of("D", "F", "H"));
+        adjacencyList.put("H", List.of("E", "F", "G"));
 
         String startNode = "H";
         String endNode = "A";
@@ -44,45 +45,52 @@ public class NetworkAlgorithms {
 
     private static void processWeightedGraphs() {
         // Graph from 3.4 example 7 in Edexcel A level D1
-        WeightedAdjacencyList adjacencyList = new WeightedAdjacencyList();
-        adjacencyList.addDirectedEdge("A", "B", 5.0);
-        adjacencyList.addDirectedEdge("A", "C", 2.0);
-        adjacencyList.addDirectedEdge("B", "C", 2.0);
-        adjacencyList.addDirectedEdge("B", "D", 4.0);
-        adjacencyList.addDirectedEdge("B", "A", 5.0);
-        adjacencyList.addDirectedEdge("C", "B", 2.0);
-        adjacencyList.addDirectedEdge("C", "D", 3.0);
-        adjacencyList.addDirectedEdge("C", "E", 5.0);
-        adjacencyList.addDirectedEdge("D", "B", 4.0);
-        adjacencyList.addDirectedEdge("D", "C", 3.0);
-        adjacencyList.addDirectedEdge("D", "E", 1.0);
-        adjacencyList.addDirectedEdge("D", "F", 9.0);
-        adjacencyList.addDirectedEdge("D", "G", 11.0);
-        adjacencyList.addDirectedEdge("E", "A", 5.0);
-        adjacencyList.addDirectedEdge("E", "F", 8.0);
-        adjacencyList.addDirectedEdge("E", "I", 14.0);
-        adjacencyList.addDirectedEdge("F", "E", 8.0);
-        adjacencyList.addDirectedEdge("F", "D", 9.0);
-        adjacencyList.addDirectedEdge("F", "G", 1.0);
-        adjacencyList.addDirectedEdge("F", "H", 5.0);
-        adjacencyList.addDirectedEdge("F", "I", 7.0);
-        adjacencyList.addDirectedEdge("G", "D", 11.0);
-        adjacencyList.addDirectedEdge("G", "H", 2.0);
-        adjacencyList.addDirectedEdge("H", "F", 5.0);
-        adjacencyList.addDirectedEdge("H", "I", 2.0);
-        adjacencyList.addDirectedEdge("I", "E", 14.0);
-        adjacencyList.addDirectedEdge("I", "F", 7.0);
-        adjacencyList.addDirectedEdge("I", "H", 2.0);
+        WeightedAdjacencyList directedAdjacencyList = new WeightedAdjacencyList();
+        directedAdjacencyList.addDirectedEdge("A", "B", 5.0);
+        directedAdjacencyList.addDirectedEdge("A", "C", 2.0);
+        directedAdjacencyList.addDirectedEdge("B", "C", 2.0);
+        directedAdjacencyList.addDirectedEdge("B", "D", 4.0);
+        directedAdjacencyList.addDirectedEdge("B", "A", 5.0);
+        directedAdjacencyList.addDirectedEdge("C", "B", 2.0);
+        directedAdjacencyList.addDirectedEdge("C", "D", 3.0);
+        directedAdjacencyList.addDirectedEdge("C", "E", 5.0);
+        directedAdjacencyList.addDirectedEdge("D", "B", 4.0);
+        directedAdjacencyList.addDirectedEdge("D", "C", 3.0);
+        directedAdjacencyList.addDirectedEdge("D", "E", 1.0);
+        directedAdjacencyList.addDirectedEdge("D", "F", 9.0);
+        directedAdjacencyList.addDirectedEdge("D", "G", 11.0);
+        directedAdjacencyList.addDirectedEdge("E", "A", 5.0);
+        directedAdjacencyList.addDirectedEdge("E", "F", 8.0);
+        directedAdjacencyList.addDirectedEdge("E", "I", 14.0);
+        directedAdjacencyList.addDirectedEdge("F", "E", 8.0);
+        directedAdjacencyList.addDirectedEdge("F", "D", 9.0);
+        directedAdjacencyList.addDirectedEdge("F", "G", 1.0);
+        directedAdjacencyList.addDirectedEdge("F", "H", 5.0);
+        directedAdjacencyList.addDirectedEdge("F", "I", 7.0);
+        directedAdjacencyList.addDirectedEdge("G", "D", 11.0);
+        directedAdjacencyList.addDirectedEdge("G", "H", 2.0);
+        directedAdjacencyList.addDirectedEdge("H", "F", 5.0);
+        directedAdjacencyList.addDirectedEdge("H", "I", 2.0);
+        directedAdjacencyList.addDirectedEdge("I", "E", 14.0);
+        directedAdjacencyList.addDirectedEdge("I", "F", 7.0);
+        directedAdjacencyList.addDirectedEdge("I", "H", 2.0);
+
 
         String startNode = "A";
         String endNode = "H";
 
         System.out.println("Dijkstra:");
-        ArrayList<String> dijkstraPath = Dijkstra.findShortestRoute(adjacencyList, startNode, endNode);
+        ArrayList<String> dijkstraPath = Dijkstra.findShortestRoute(directedAdjacencyList, startNode, endNode);
         for (String node : dijkstraPath) {
             System.out.println(node);
         }
+        System.out.println("Dijkstra distance: " + Dijkstra.getShortestDistance(directedAdjacencyList, startNode, endNode));
 
-        System.out.println("Dijkstra distance: " + Dijkstra.getShortestDistance(adjacencyList, startNode, endNode));
+        System.out.println("Kruskal:");
+        WeightedAdjacencyList kruskalMst = Kruskal.getMinimumSpanningTree(directedAdjacencyList);
+        for (Edge edge: kruskalMst.getEdges()) {
+            System.out.println(edge.getNode1() + edge.getNode2() + ": " + edge.getWeight());
+        }
+        System.out.println("Kruskal total weight: " + Kruskal.getTotalMstWeight(directedAdjacencyList));
     }
 }

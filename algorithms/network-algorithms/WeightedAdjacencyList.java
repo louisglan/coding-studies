@@ -1,7 +1,4 @@
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class WeightedAdjacencyList extends HashMap<String, List<AbstractMap.SimpleEntry<String, Double>>> {
     public void addDirectedEdge(String startNode, String endNode, Double weight) {
@@ -12,5 +9,23 @@ public class WeightedAdjacencyList extends HashMap<String, List<AbstractMap.Simp
             return;
         }
         this.get(startNode).add(new AbstractMap.SimpleEntry<>(endNode, weight));
+    }
+
+    public List<Edge> getEdges() {
+        AdjacencyList edgesAdded = new AdjacencyList();
+        List<Edge> edges = new ArrayList<>();
+        for (String node : this.keySet()) {
+            for (var neighbour : this.get(node)) {
+                if (edgesAdded.get(neighbour.getKey()) == null || !edgesAdded.get(neighbour.getKey()).contains(node)) {
+                    edges.add(new Edge(node, neighbour.getKey(), neighbour.getValue()));
+                    if (edgesAdded.get(node) == null) {
+                        edgesAdded.put(node, new ArrayList<>(Collections.singletonList(neighbour.getKey())));
+                    } else {
+                        edgesAdded.get(node).add(neighbour.getKey());
+                    }
+                }
+            }
+        }
+        return edges;
     }
 }
