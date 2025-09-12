@@ -70,6 +70,9 @@ public class NetworkAlgorithms {
             System.out.println(edge.getNode1() + edge.getNode2() + ": " + edge.getWeight());
         }
         System.out.println("Prim total weight: " + Prim.getTotalMstWeight(undirectedAdjacencyList));
+
+        System.out.println("Chinese Postman:");
+        System.out.println(ChinesePostman.findShortestTraversalWeight(undirectedAdjacencyList));
     }
 
     private static WeightedAdjacencyList getDirectedAdjacencyList() {
