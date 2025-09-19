@@ -9,38 +9,50 @@ public class NetworkAlgorithms {
     }
 
     private static void processUnweightedGraphs() {
-        AdjacencyList adjacencyList = new AdjacencyList();
+        AdjacencyList graph = new AdjacencyList();
         // Graph from 3D.5 in Edexcel A level D1
-        adjacencyList.put("A", List.of("B", "C", "D"));
-        adjacencyList.put("B", List.of("A", "C", "E"));
-        adjacencyList.put("C", List.of("A", "B", "D", "E", "F"));
-        adjacencyList.put("E", List.of("B", "C", "F", "H"));
-        adjacencyList.put("D", List.of("A", "C", "F", "G"));
-        adjacencyList.put("F", List.of("C", "D", "E", "G", "H"));
-        adjacencyList.put("G", List.of("D", "F", "H"));
-        adjacencyList.put("H", List.of("E", "F", "G"));
+        graph.put("A", List.of("B", "C", "D"));
+        graph.put("B", List.of("A", "C", "E"));
+        graph.put("C", List.of("A", "B", "D", "E", "F"));
+        graph.put("E", List.of("B", "C", "F", "H"));
+        graph.put("D", List.of("A", "C", "F", "G"));
+        graph.put("F", List.of("C", "D", "E", "G", "H"));
+        graph.put("G", List.of("D", "F", "H"));
+        graph.put("H", List.of("E", "F", "G"));
+        AdjacencyList bipartiteGraphGroup1 = getBipartiteGroup1AdjacencyList();
+        AdjacencyList bipartiteGraphGroup2 = getBipartiteGroup2AdjacencyList();
 
         String startNode = "H";
         String endNode = "A";
 
         System.out.println("DFS recursive:");
-        ArrayList<String> dfsRecursivePath = DfsRecursive.findRoute(adjacencyList, startNode, endNode);
+        ArrayList<String> dfsRecursivePath = DfsRecursive.findRoute(graph, startNode, endNode);
         for (String node : dfsRecursivePath) {
             System.out.println(node);
         }
 
         System.out.println("DFS iterative:");
-        ArrayList<String> dfsIterativePath = DfsIterative.findRoute(adjacencyList, startNode, endNode);
+        ArrayList<String> dfsIterativePath = DfsIterative.findRoute(graph, startNode, endNode);
         for (String node : dfsIterativePath) {
             System.out.println(node);
         }
 
         System.out.println("BFS iterative:");
-        ArrayList<String> bfsIterativePath = BfsIterative.findShortestRoute(adjacencyList, startNode, endNode);
+        ArrayList<String> bfsIterativePath = BfsIterative.findShortestRoute(graph, startNode, endNode);
         for (String node : bfsIterativePath) {
             System.out.println(node);
         }
-        System.out.println("BFS distance: " + BfsIterative.findShortestDistance(adjacencyList, startNode, endNode));
+        System.out.println("BFS distance: " + BfsIterative.findShortestDistance(graph, startNode, endNode));
+
+        AdjacencyList maximalMatching = MaximalMatching.getMaximalMatching(bipartiteGraphGroup1, bipartiteGraphGroup2);
+        System.out.println("Maximum matching: ");
+        for (String node : bipartiteGraphGroup1.keySet()) {
+            if (maximalMatching.get(node) != null) {
+                System.out.println(node + " <-> " + maximalMatching.get(node).get(0));
+            }
+        }
+        System.out.println("Maximum number of distinct pairings: " +
+                MaximalMatching.getMaximumDistinctPairCount(bipartiteGraphGroup1, bipartiteGraphGroup2));
     }
 
     private static void processWeightedGraphs() {
@@ -59,21 +71,67 @@ public class NetworkAlgorithms {
 
         System.out.println("Kruskal:");
         WeightedAdjacencyList kruskalMst = Kruskal.getMinimumSpanningTree(directedAdjacencyList);
-        for (Edge edge: kruskalMst.getEdges()) {
+        for (Edge edge : kruskalMst.getEdges()) {
             System.out.println(edge.getNode1() + edge.getNode2() + ": " + edge.getWeight());
         }
         System.out.println("Kruskal total weight: " + Kruskal.getTotalMstWeight(directedAdjacencyList));
 
         System.out.println("Prim:");
         WeightedAdjacencyList primMst = Prim.getMinimumSpanningTree(undirectedAdjacencyList);
-        for (Edge edge: primMst.getEdges()) {
+        for (Edge edge : primMst.getEdges()) {
             System.out.println(edge.getNode1() + edge.getNode2() + ": " + edge.getWeight());
         }
         System.out.println("Prim total weight: " + Prim.getTotalMstWeight(undirectedAdjacencyList));
 
-        System.out.println("Chinese Postman:");
-        System.out.println(ChinesePostman.findShortestTraversalWeight(undirectedAdjacencyList));
+        System.out.println("Chinese Postman shortest traversal weight:" + ChinesePostman.findShortestTraversalWeight(undirectedAdjacencyList));
+
     }
+
+    private static AdjacencyList getBipartiteGroup1AdjacencyList() {
+        AdjacencyList group1 = new AdjacencyList();
+        // Graph from 7.2 Example 5 in Edexcel A level D1
+        group1.put("Pat", List.of("cakes", "flowers", "fruit"));
+        group1.put("Ramin", List.of("cakes", "preserves"));
+        group1.put("Sze Ting", List.of("cakes", "fruit"));
+        group1.put("Tom", List.of("fruit"));
+        group1.put("Will", List.of("flowers", "preserves", "vegetables"));
+        return group1;
+    }
+
+    private static AdjacencyList getBipartiteGroup2AdjacencyList() {
+        AdjacencyList group2 = new AdjacencyList();
+        // Graph from 7.2 Example 5 in Edexcel A level D1
+        group2.put("cakes", List.of("Pat", "Ramin", "Sze Ting"));
+        group2.put("flowers", List.of("Pat", "Will"));
+        group2.put("fruit", List.of("Pat", "Sze Ting", "Tom"));
+        group2.put("preserves", List.of("Ramin", "Will"));
+        group2.put("vegetables", List.of("Will"));
+        return group2;
+    }
+
+//    private static AdjacencyList getBipartiteGroup1AdjacencyList() {
+//        AdjacencyList group1 = new AdjacencyList();
+//        // Graph from 7B Q5 in Edexcel A level D1
+//        group1.put("A", List.of("T", "R"));
+//        group1.put("B", List.of("S", "R", "W"));
+//        group1.put("C", List.of("U", "S"));
+//        group1.put("D", List.of("V", "R"));
+//        group1.put("E", List.of("T", "V"));
+//        group1.put("F", List.of("V"));
+//        return group1;
+//    }
+//
+//    private static AdjacencyList getBipartiteGroup2AdjacencyList() {
+//        AdjacencyList group2 = new AdjacencyList();
+//        // Graph from 7B Q5 in Edexcel A level D1
+//        group2.put("R", List.of("A", "B", "D"));
+//        group2.put("S", List.of("B", "C"));
+//        group2.put("T", List.of("A", "E"));
+//        group2.put("U", List.of("C"));
+//        group2.put("V", List.of("D", "E", "F"));
+//        group2.put("W", List.of("B"));
+//        return group2;
+//    }
 
     private static WeightedAdjacencyList getDirectedAdjacencyList() {
         // Graph from 3.4 example 7 in Edexcel A level D1
