@@ -6,8 +6,9 @@ public class QuickSort extends Sort {
     }
 
     private Double[] sort(Double[] numbers, int startIndex, int endIndex) {
-        if (Math.abs(startIndex - endIndex) <= 1) return numbers;
+        if (startIndex == endIndex) return numbers;
         int finalPivotIndex = partition(numbers, startIndex, endIndex);
+        if (startIndex + 1 == endIndex) return numbers;
         sort(numbers, startIndex, finalPivotIndex - 1);
         sort(numbers, finalPivotIndex + 1, endIndex);
         return numbers;
