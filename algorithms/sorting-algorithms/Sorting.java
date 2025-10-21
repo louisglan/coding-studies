@@ -24,7 +24,9 @@ public class Sorting {
                 new InsertionSortV2(),
                 new MergeSort(),
                 new MergeSortParallel(),
-                new QuickSort()};
+                new QuickSort(),
+                new QuickSortParallel()
+        };
 
         long[] wallClockTimes = new long[sortingAlgorithms.length];
         for (int i = 0; i < sortingAlgorithms.length; i++) {

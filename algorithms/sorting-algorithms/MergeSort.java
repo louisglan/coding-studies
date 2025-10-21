@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * Merge sort makes use of the "divide and conquer" paradigm. The array is recursively halved into sublists until there
  * is only one element in each sublist. Then, the halved pairs of sublists are combined back together in order. It is
@@ -13,19 +11,6 @@ public class MergeSort extends AbstractMergeSort {
     @Override
     public Double[] sort(Double[] numbers) {
         return divideAndConquer(numbers);
-    }
-
-    // make this private once parallel has been moved here using inner classes
-    public Double[] divideAndConquer(Double[] numbers) {
-        if (numbers.length > 1) {
-            int mid = numbers.length / 2;
-            var leftList = Arrays.copyOfRange(numbers, 0, mid);
-            var rightList = Arrays.copyOfRange(numbers, mid, numbers.length);
-            var conqueredLeftList = divideAndConquer(leftList);
-            var conqueredRightList = divideAndConquer(rightList);
-            return merge(conqueredLeftList, conqueredRightList);
-        }
-        return numbers;
     }
 
     @Override

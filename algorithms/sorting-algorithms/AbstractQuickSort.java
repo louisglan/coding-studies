@@ -1,0 +1,43 @@
+public abstract class AbstractQuickSort implements Sort {
+
+    protected Double[] sort(Double[] numbers, int startIndex, int endIndex) {
+        if (startIndex == endIndex) return numbers;
+        int finalPivotIndex = partition(numbers, startIndex, endIndex);
+        if (startIndex + 1 == endIndex) return numbers;
+        sort(numbers, startIndex, finalPivotIndex - 1);
+        sort(numbers, finalPivotIndex + 1, endIndex);
+        return numbers;
+    }
+
+    protected int partition(Double[] numbers, int startIndex, int endIndex) {
+        int pivotIndex = medianOfThree(numbers, startIndex, endIndex);
+        swap(numbers, pivotIndex, endIndex);
+        Double pivot = numbers[endIndex];
+        int i = startIndex;
+        for (int j = startIndex; j < endIndex; j++) {
+            if (numbers[j] < pivot) {
+                swap(numbers, i, j);
+                i++;
+            }
+        }
+        swap(numbers, i, endIndex);
+        return i;
+    }
+
+    private int medianOfThree(Double[] numbers, int startIndex, int endIndex) {
+        int medianIndex = (startIndex + endIndex)/2;
+        if (numbers[startIndex] < numbers[endIndex] ^ numbers[startIndex] < numbers[medianIndex]) {
+            return startIndex;
+        }
+        if (numbers[endIndex] > numbers[startIndex] ^ numbers[endIndex] > numbers[medianIndex]) {
+            return endIndex;
+        }
+        return medianIndex;
+    }
+
+    private void swap(Double[] numbers, int i, int j) {
+        Double temp = numbers[i];
+        numbers[i] = numbers[j];
+        numbers[j] = temp;
+    }
+}

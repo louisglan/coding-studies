@@ -28,10 +28,9 @@ public class MergeSortParallel extends AbstractMergeSort {
             if (numbers.length <= 1) {
                 return numbers;
             }
-            int listLengthAsyncThreshold = 1000;
-            if (numbers.length < listLengthAsyncThreshold) {
-                MergeSort mergeSortSync = new MergeSort();
-                return mergeSortSync.divideAndConquer(numbers);
+            int arrayLengthAsyncThreshold = 1000;
+            if (numbers.length < arrayLengthAsyncThreshold) {
+                return divideAndConquer(numbers);
             }
             int mid = numbers.length / 2;
             var leftList = Arrays.copyOfRange(numbers, 0, mid);
