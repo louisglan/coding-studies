@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -7,44 +6,26 @@ import java.util.Arrays;
  * faster because you know each sublist is ordered so you only ever have to compare the first elements of the ordered
  * sublists to decide which will be first in the combined sublist
  */
-public class MergeSort extends Sort {
+public class MergeSort extends AbstractMergeSort {
     // TODO: implement parallel processing. In divide and conquer algorithms
     //  "solving problems using some defined base cases can be done within the cache memory" - investigate this.
     //  Can also implement in multiple ways e.g., recursively, iteratively, etc. (see Coda notes)
     @Override
     public Double[] sort(Double[] numbers) {
-        ArrayList<Double> numbersAsList = new ArrayList<>(Arrays.asList(numbers));
-        return divideAndConquer(numbersAsList).toArray(new Double[0]);
+        return divideAndConquer(numbers);
     }
 
-    private ArrayList<Double> divideAndConquer(ArrayList<Double> numbers) {
-        if (numbers.size() > 1) {
-            var leftList = new ArrayList<>(numbers.subList(0, numbers.size() / 2));
-            var rightList = new ArrayList<>(numbers.subList(numbers.size() / 2, numbers.size()));
+    // make this private once parallel has been moved here using inner classes
+    public Double[] divideAndConquer(Double[] numbers) {
+        if (numbers.length > 1) {
+            int mid = numbers.length / 2;
+            var leftList = Arrays.copyOfRange(numbers, 0, mid);
+            var rightList = Arrays.copyOfRange(numbers, mid, numbers.length);
             var conqueredLeftList = divideAndConquer(leftList);
             var conqueredRightList = divideAndConquer(rightList);
-            var sortedSubList = new ArrayList<Double>();
-            while (!conqueredLeftList.isEmpty() || !conqueredRightList.isEmpty()) {
-                moveSmallestElementToSubList(conqueredLeftList, conqueredRightList, sortedSubList);
-            }
-            return sortedSubList;
+            return merge(conqueredLeftList, conqueredRightList);
         }
         return numbers;
-    }
-
-    private void moveSmallestElementToSubList(
-            ArrayList<Double> conqueredLeftList,
-            ArrayList<Double> conqueredRightList,
-            ArrayList<Double> subList) {
-        if (conqueredLeftList.isEmpty()) {
-            subList.add(conqueredRightList.removeFirst());
-        } else if (conqueredRightList.isEmpty()) {
-            subList.add(conqueredLeftList.removeFirst());
-        } else if (conqueredLeftList.getFirst() <= conqueredRightList.getFirst()) {
-            subList.add(conqueredLeftList.removeFirst());
-        } else {
-            subList.add(conqueredRightList.removeFirst());
-        }
     }
 
     @Override

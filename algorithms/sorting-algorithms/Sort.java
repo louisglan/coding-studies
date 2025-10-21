@@ -1,23 +1,21 @@
+import utils.Timer;
+
 import static utils.PrintUtils.printFormattedArray;
 
-public abstract class Sort {
-    private long wallClockTime;
+public interface Sort {
     /**
     Sorts the numbers in the array and saves the most recent time taken as a long value in nanoseconds. Prints the sorted numbers to sout
      */
-    public void sortAndPrintResults(Double[] numbers) {
+    default long sortAndPrintResults(Double[] numbers) {
         System.out.printf("%s sorted numbers:\n", getAlgorithmName());
-        long startTime = System.nanoTime();
+        Timer timer = new Timer();
+        timer.start();
         Double[] sortedNumbers = sort(numbers);
-        long endTime = System.nanoTime();
+        long wallClockTime = timer.stop();
         printFormattedArray(sortedNumbers);
-        wallClockTime = endTime - startTime;
-    }
-    public abstract Double[] sort(Double[] numbers);
-
-    public abstract String getAlgorithmName();
-
-    public long getWallClockTime() {
         return wallClockTime;
     }
+    Double[] sort(Double[] numbers);
+
+    String getAlgorithmName();
 }

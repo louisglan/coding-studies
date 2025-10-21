@@ -1,4 +1,4 @@
-public class QuickSort extends Sort {
+public class QuickSort implements Sort {
 
     @Override
     public Double[] sort(Double[] numbers) {

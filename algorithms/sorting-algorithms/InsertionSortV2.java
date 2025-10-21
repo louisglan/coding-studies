@@ -3,7 +3,7 @@
  * moving all the elements before the inspected element that are larger than it up and then filling the empty space with
  * the inspected element
  */
-public class InsertionSortV2 extends Sort {
+public class InsertionSortV2 implements Sort {
     @Override
     public Double[] sort(Double[] numbers) {
         for (int i = 1; i < numbers.length; i++) {

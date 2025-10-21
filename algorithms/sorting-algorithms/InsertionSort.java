@@ -6,7 +6,7 @@ import java.util.Collections;
  * Insertion sort works by splitting your array into a sorted and unsorted list. You inspect each element in the
  * unsorted list at a time and insert them into the appropriate location in the sorted list.
  */
-public class InsertionSort extends Sort {
+public class InsertionSort implements Sort {
     @Override
     public Double[] sort(Double[] numbers) {
         ArrayList<Double> numbersAsList = new ArrayList<>(Arrays.asList(numbers));

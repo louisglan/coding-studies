@@ -3,7 +3,7 @@
  * swapped. The algorithm repeatedly loops through the array until it doesn't have to do any more swaps
  */
 
-public class BubbleSort extends Sort {
+public class BubbleSort implements Sort {
     @Override
     public Double[] sort(Double[] numbers) {
         boolean isChanged = true;
